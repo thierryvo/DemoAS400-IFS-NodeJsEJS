@@ -1,0 +1,116 @@
+<!-- DEMO_USER (AS400 CRUD) / fichier: views/user/add.ejs -->
+<!-- (FORMULAIRE ADD  USER) ----------------- -->
+<div class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1 class="h2">User</h1>
+  <div class="btn-toolbar mb-2 mb-md 0">
+    <div class="btn-group me-2">
+      <button class="btn btn-sm btn-outline-secondary">?</button>
+    </div>
+  </div>
+</div>
+
+<!-- une nav avec lien sur index et un titre -->
+<div class="col py-3">
+  <div class="row">
+    <div class="col">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <!-- lien: index client: '/client/' -->
+          <li class="breadcrumb-item">
+            <a href="<%= urlIndex %>">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active">SAISIE NOUVEAU USER</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col text-end fw-lighter">
+      <b>UserId</b>
+    </div>
+  </div>
+</div>
+
+<!-- MESSGE D 'INFORMATION -->
+<!-- MESSGE D 'ERREURS (catch) -->
+<!-- SI objet tabDesErreurs : alert-danger messages -->
+<% if(tabDesErreurs != '') { %>
+  <div class="col-8 alert alert-danger alert-dismissible fade show" role="alert">
+    <%= tabDesErreurs[0] %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% } %>
+
+<!-- FORMULAIRE DE SAISIE USER: POST avec '/add' => pour ajout user -->
+<form action="<%= urlActionAdd %>" method="POST" name="formAddUser">
+  <!-- form groupe colonné -->
+  <div class="row form-group mb-4">
+    <!-- nom -->
+    <div class="col">
+      <label for="nom">Nom*</label>
+      <input type="text" class="form-control"
+             id="NOM" name="NOM" value="<%=r_user.NOM%>" placeholder="Nom" required>
+             <p style="color: red;"><%=(locals.tabDesZones[0]==='O')? 'erreur':''%></p>
+    </div>
+    <!-- prenom -->
+    <div class="col">
+      <label for="prenom">prenom*</label>
+      <input type="text" class="form-control"
+             id="PRENOM" name="PRENOM" value="<%=r_user.PRENOM%>" placeholder="Prenom" required>
+             <p style="color: red;"><%=(locals.tabDesZones[1]==='O')? 'erreur':''%></p>
+    </div>
+  </div>
+
+  <!-- form groupe colonné -->
+  <div class="row form-group mb-4">
+    <!-- pseudo -->
+    <div class="col">
+      <label for="PSEUDO">Pseudo*</label>
+      <input type="text" class="form-control"
+              id="PSEUDO" name="PSEUDO" value="<%=r_user.PSEUDO%>" placeholder="Pseudo" required>
+              <p style="color: red;"><%=(locals.tabDesZones[2]==='O')? 'erreur':''%></p>
+    </div>
+    <!-- telephone -->
+    <div class="col">
+      <label for="telephone">Téléphone</label>
+      <input type="text" class="form-control"
+              id="TELEPHONE" name="TELEPHONE" value="<%=r_user.TELEPHONE%>" placeholder="Téléphone">
+              <p style="color: red;"><%=(locals.tabDesZones[3]==='O')? 'erreur':''%></p>
+    </div>
+  </div>
+
+    <!-- form groupe colonné -->
+    <div class="row form-group mb-4">
+      <!-- email -->
+      <div class="col">
+        <label for="email">Email*</label>
+        <input type="text" class="form-control"
+                id="EMAIL" name="EMAIL" value="<%=r_user.EMAIL%>" placeholder="Email" required>          
+                <p style="color: red;"><%=(locals.tabDesZones[4]==='O')? 'erreur':''%></p>
+      </div>
+      <!-- passe -->
+      <div class="col">
+        <label for="passe">Passe*</label>
+        <input type="text" class="form-control"
+                id="PASSE" name="PASSE" value="<%=r_user.PASSE%>" placeholder="Passe" required
+                onKeyUp="validatepasse()">
+                <p style="color: red;"><%=(locals.tabDesZones[5]==='O')? 'erreur':''%></p>
+                <span id="msgp"></span>  
+      </div>
+    </div>
+
+  <!-- form groupe -->
+  <!-- detail    maxlength="200"  -->
+  <div class="form-group mb-4">
+      <label for="detail">User détail</label>
+      <textarea class="form-control" cols="30" rows="12"
+                id="DETAIL" name="DETAIL" placeholder="User detail..."><%=r_user.DETAIL%></textarea>
+                <p style="color: red;"><%=(locals.tabDesZones[6]==='O')? 'erreur':''%></p>
+  </div>
+
+  <!-- BOUTON ADD CLIENT type (submit ou button) -->                      
+  <!-- ici je passe en bouton -->
+  <!-- le submit se passe dans: public/js/script.js  fonction: validateFormAddUser() -->  
+  <div class="form-group mb-4">
+    <button type="button" class="btn btn-primary" onClick="validateFormAddUser()">ADD USER</button>
+    <span id="msgp2" style="color: red;"></span>  
+  </div>
+</form>

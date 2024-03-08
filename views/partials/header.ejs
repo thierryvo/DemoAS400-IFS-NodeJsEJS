@@ -1,0 +1,19 @@
+<!-- DEMO_USER / fichier: views/partials/header.ejs -->
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+  <!-- lien: index user (homepage): '/demo-user/user/' -->
+  <a href="<%= urlIndex %>" class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6">HomePage</a>
+  
+  <!-- bouton ? -->
+  <button class="navbar-toggler position-absolute d-md-none collapsed" 
+          type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" 
+          aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- zone de recherche avec urlRecherche: '/demo-user/user/user-recherche'  & variable: rechercheTerme -->
+  <form class="nav col-12 col-md-auto flex-fill mb-2 justify-content-center mb-md-0" 
+        method="POST" action="<%= urlRecherche %>" role="search">
+    <input class="form-control form-control-dark w-100 rounded-0 border-0" aria-label="Search"
+    type="search" name="rechercheTerme" placeholder="Recherche...">
+  </form>
+</header>

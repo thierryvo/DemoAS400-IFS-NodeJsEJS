@@ -1,0 +1,69 @@
+<!-- DEMO_USER / fichier: views/parttals/sidebar.ejs -->
+<!--              (MENU Vertical à gauche) ---------- -->
+<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+  <div class="position-sticky pt-3 sidebar-sticky">
+    <!-- sidebar; barre de MENU à gauche -->
+    <ul class="nav flex-column">
+
+     <!--  https://icons.getbootstrap.com/ -->
+     
+     
+      <li class="nav-item">        
+        <!-- lien: index user (homepage): '/demo-user/user/'  (Dashboard = tableau de bord)-->
+        <a href="<%= urlIndex %>" class="nav-link active" aria-current="page">
+          <i class="bi bi-house"></i>
+          Dashboard
+        </a>
+      </li>
+      <li class="nav-item">        
+        <!-- lien: '/demo-user/user/about' -->
+        <a  href="<%= urlabout %>" class="nav-link">
+          <i class="bi bi-patch-question"></i>
+          About
+        </a>
+      </li>
+
+      <% if(locals.urlconnexion) { %>
+        <li class="nav-item">
+          <!-- lien connexion : '/demo-seq/user/about' -->
+          <a  href="<%= urlconnexion %>" class="nav-link">
+            <i class="bi bi-bag"></i>
+            Connexion
+          </a>
+        </li>
+        <% } %>
+  
+        <% if(locals.urldeconnexion) { %>
+        <li class="nav-item">
+          <!-- lien connexion : '/demo-seq/user/about' -->
+          <a  href="<%= urldeconnexion %>" class="nav-link">
+            <i class="bi bi-bag-x"></i>
+            Déconnexion
+          </a>
+        </li>
+        <% } %>
+
+
+      <!-- SI tableau existe: tabMenuDynamique -->
+      <% if(locals.tabMenuDynamique && locals.tabMenuDynamique.length) { %>
+        <!-- BOUCLE sur le tableau des MENU Dynamique  tabMenuDynamique -->
+        <% tabMenuDynamique.forEach(itemMenu => { %>
+          <!-- mettre des li de menu en boucle -->
+          <li class="nav-item">
+            <!-- lien connexion : '/demo-seq/user/about' -->
+            <a  href="<%= itemMenu.urlmenu %>" class="nav-link">
+              <i class="bi bi-bag-x"></i>
+              <%= itemMenu.nom %>
+            </a>
+          </li>
+          <!-- -- -->
+        <% }) %>
+      <% } %>
+
+
+      <!--  https://icons.getbootstrap.com/ -->      
+
+
+    </ul>
+  </div>
+</nav>

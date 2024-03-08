@@ -1,0 +1,65 @@
+<!-- DEMO_USER / fichier: views/resultat-recherche-user.ejs -->
+<!-- même principe que acceuil --------- -->
+<div class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1 class="h2">Résultat recherche Users</h1>
+  <div class="btn-toolbar mb-2 mb-md 0">
+    <div class="btn-group me-2">    
+      <!-- lien: add client -->
+      <a href="<%= urlSoumettreAddUser %>" class="btn btn-sm btn-outline-secondary">+ ADD USER</a>
+    </div>
+  </div>
+</div>
+
+<!-- div (1) grande div table responsive -->
+<div class="table-responsive">
+  <!-- SI tableau existe: tabDeUsers -->
+  <% if(locals.tabDeUsers && locals.tabDeUsers.length) { %>    
+    <!-- tableau -->
+    <table class="table table-striped table-sm">
+      <!-- entête colonne tableau -->
+      <thead>
+        <tr>
+          <th scope="col">NOM</th>
+          <th scope="col">PRENOM</th>
+          <th scope="col">PSEUDO</th>
+          <th scope="col">TELEPHONE</th>
+          <th scope="col">ID</th>
+          <th scope="col" class="text-end">ACTION</th>
+        </tr>
+      </thead>
+      <!-- lignes du tableau -->
+      <tbody>
+        <!-- BOUCLE lignes du tableau --------------------------------------------------------- -->
+        <% tabDeUsers.forEach(itemUser => { %>
+          <tr class="align-middle">
+            <!-- 3 premières colonnes  -->
+            <td><%= itemUser.NOM %></td>
+            <td><%= itemUser.PRENOM %></td>
+            <td><%= itemUser.PSEUDO %></td>
+            <td><%= itemUser.TELEPHONE %></td>
+            <td><%= itemUser.UID %></td>
+
+            <!-- td colonne ACTION -->
+            <td class="text-end">
+              <div class="d-flex flex-row justify-content-end gap-2">
+                <!-- action lien 1: Vue (Affichage d un client par son ID) -->
+                <a href="<%= urlActionView %><%= itemUser.UID %>" type="button" class="btn btn-primary btn-small">
+                  <i class="bi bi-eye"></i>
+                </a>
+                <!-- action lien 2: Edit (Modifier un client par son ID) -->
+                <a href="<%= urlActionEdit %><%= itemUser.UID %>" type="button" class="btn btn-warning btn-small">
+                  <i class="bi bi-pencil"></i>
+                </a>
+
+              </div>
+            </td>
+          </tr>
+        <% }) %>
+        <!-- FIN BOUCLE lignes du tableau ----------------------------------------------------- -->
+      </tbody>
+    </table>
+  <% } else { %>
+    <h2>Aucun résultat trouvé.</h2>
+  <% } %>
+</div>
+

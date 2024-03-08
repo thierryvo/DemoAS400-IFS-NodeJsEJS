@@ -1,0 +1,111 @@
+<!-- DEMO_USER  / fichier: views/lienarticle.ejs -->
+<!-- (lien article et lot              --------- -->
+
+<!-- dans body: PAGE rendu par le routeur clientRoutes, fonction homepage: (home) -->
+<div class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1 class="h2">article avec gestion par lot... idem Colos</h1>
+  <div class="btn-toolbar mb-2 mb-md 0">
+    <div class="btn-group me-2">
+      <p>Nb. articles:<b class="fw-bold"><%= r_count %></b></p>
+    </div>
+  </div>
+</div>
+
+<!-- SI tableau existe: tabMessages -->
+<% if(locals.tabMessages && locals.tabMessages.length) { %>
+  <!-- BOUCLE sur le tableau des messages tabMessages -->
+  <% tabMessages.forEach(itemMessage => { %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <%= itemMessage %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% }) %> 
+<% } %>
+
+<!-- selecteur du top gestion lot O/N -->
+<div class="col-12 mb-4">
+  <label for="gestionlot">Selection gestion lot</label>
+  <select class="form-select form-control" name="gestionlot" aria-label="Gestion lot">
+    <option selected>Selectionner un top gestion lot</option>
+    <option value="O">O Oui</option>
+    <option value="N">N Non</option>    
+  </select>
+</div>
+
+
+<!-- div (1) grande div table responsive -->
+<div class="table-responsive">
+  <!-- tableau -->
+  <table class="table table-striped table-sm">
+    <!-- entête colonne tableau -->
+    <thead>
+      <tr>
+        <th scope="col">ARTICLE</th>
+        <th scope="col">ARTICLE EN STOCK</th>
+        <th scope="col">ACTIF A/S</th>
+        <th scope="col">SEP</th>
+        <th scope="col">ARTICLE DE STOCK of LOT</th>
+        <th scope="col">LOT of LOT</th>
+        <th scope="col">GESTION LOT of PRVARTICLE O/N</th>
+      </tr>
+    </thead>
+    <!-- lignes du tableau -->
+    <tbody>
+      <!-- BOUCLE lignes du tableau --------------------------------------------------------- -->
+      <% tabArticles.forEach(itemArticle => { %>
+        <tr class="align-middle">
+          <!-- 3 premières colonnes  -->
+          <td><%= itemArticle.ARTICLE_A6AUA8 %></td>
+          <td id="tdcodealpha"><%= itemArticle.ARTICLE_REF_STOCK_A6B9A8 %></td>
+          <td id="tdcenter"><%= itemArticle.ACTIF %></td>
+          <td><%= itemArticle.SEP %></td>
+          <td id="tdcodealpha"><%= itemArticle.ARTICLE_DE_STOCK %></td>
+          <td id="tdcodealpha"><%= itemArticle.LOT %></td>
+          <td id="tdcenter"><%= itemArticle.GESTIONLOT %></td>
+
+
+        </tr>
+      <% }) %>
+      <!-- FIN BOUCLE lignes du tableau ----------------------------------------------------- -->
+    </tbody>
+  </table>
+</div>
+
+
+<!-- SYSTEME de PAGINATION .DEBUT 1 2 3 4 FIN>>  -->
+<% if(locals.tabArticles && locals.tabArticles.length) { %>
+  <nav aria-label="Dashboard Pagination">
+    <ul class="pagination justify-content-center mt-5">
+      <!-- <<DEBUT (PREMIER) -->
+      <% if (current == 1) { %>
+        <li class="page-item disabled"><a href="#" class="page-link">.DEBUT</a></li>
+      <% } else { %>
+        <li class="page-item"><a href="/demo-user/user/lienarticle/?page=1" class="page-link">.DEBUT</a></li>
+      <% } %>
+      <!-- PAGES -->
+      <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+      <% if(i !== 1) { %>
+        <li class="page-item disabled"><a href="#" class="page-link">...</a></li>
+      <% } %>
+      <!-- BOUCLE: 1  2  3  4 -->  
+      <% for(; i <= (Number(current) + 4) && i <= pages; i++ ) { %>
+        <% if (i == current) { %>
+          <li class="page-item disabled"><a href="#" class="page-link"><%= i %></a></li>
+        <% } else { %>
+          <li class="page-item"><a href="/demo-user/user/lienarticle/?page=<%= i %>" class="page-link"><%= i %></a></li>
+        <% } %>
+        <% if (i == Number(current) + 4 && i < pages) { %>
+          <li class="page-item disabled"><a href="#" class="page-link">...</a></li>
+        <% } %>
+      <% } %>
+
+      <!-- FIN>> (DERNIER) -->
+      <% if (current == pages) { %>
+        <li class="page-item disabled"><a href="#" class="page-link">FIN>></a></li>
+      <% } else { %>
+        <li class="page-item"><a href="/demo-user/user/lienarticle/?page=<%= pages %>" class="page-link">FIN>></a></li>
+      <% } %>
+
+    </ul>
+  </nav>
+<% } %>
